@@ -5,14 +5,20 @@ namespace APBD10.DTOs;
 
 public class NewPrescriptionDTO
 {
-    [Required] public ICollection<NewPacientDTO> Patients { get; set; } = new HashSet<NewPacientDTO>();
-    [Required] public ICollection<NewMedicaments2DTO> Medicaments { get; set; } = new HashSet<NewMedicaments2DTO>();
-
+    public int IdDoctor { get; set; }
+    public int IdPatient { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public DateTime Birthday { get; set; }
     public DateTime Date { get; set; }
     public DateTime DueDate { get; set; }
+    [Required] public ICollection<NewPatientDTO> PatientDtos { get; set; } = new HashSet<NewPatientDTO>();
+
+    [Required] public ICollection<NewMedicaments2DTO> Medicaments { get; set; } = new HashSet<NewMedicaments2DTO>();
+    
 }
 
-public class NewPacientDTO{
+public class NewPatientDTO{
         [Required]
         public int IdPatient { get; set; }
         [MaxLength(100)]

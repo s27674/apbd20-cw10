@@ -1,4 +1,5 @@
 using APBD10.Data;
+using APBD10.DTOs;
 using APBD10.Models;
 using Microsoft.EntityFrameworkCore;
 namespace APBD10.Service;
@@ -28,23 +29,23 @@ public class DbService : IDbService
         return await _context.Patients.AnyAsync(e => e.IdPatient == patientId);
     }
     
-    public async Task<bool> DoesDoctorExist(int doctorId)
+    public async Task<bool> DoesMedicamentExist(int medicamentId)
     {
-        return await _context.Doctors.AnyAsync(e => e.IdDoctor == doctorId);
+        return await _context.Medicaments.AnyAsync(e => e.IdMedicament == medicamentId);
     }
     
-    public async Task AddNewPrescription(Prescription prescription)
+    public async Task AddNewPrescription(NewPrescriptionDTO prescription)
     {
         await _context.AddAsync(prescription);
         await _context.SaveChangesAsync();
     }
     
-    public async Task AddNewPrescriptionPatient(IEnumerable<Patient> patients)
+    public async Task AddNewPrescriptionPatient(NewPatientDTO patients)
     {
         await _context.AddRangeAsync(patients);
         await _context.SaveChangesAsync();
     }
-    public async Task AddNewPrescriptionMedicaments(IEnumerable<Medicament> medicaments)
+    public async Task AddNewPrescriptionMedicaments(NewMedicaments2DTO medicaments)
     {
         await _context.AddRangeAsync(medicaments);
         await _context.SaveChangesAsync();

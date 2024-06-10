@@ -20,9 +20,10 @@ public class NewPrescriptionsDTO
         public DateTime Date { get; set; }
         [Required]
         public DateTime DueDate { get; set; }
-        public NewDoctorDTO Doctor { get; set; }
+
+        public Doctor NewDoctorDTO { get; set; }
         public IEnumerable<NewMedicamentsDTO> Medicaments { get; set; } = new HashSet<NewMedicamentsDTO>();
-        
+        public NewDoctorDTO Doctor { get; set; }
     }
 
     public class NewMedicamentsDTO

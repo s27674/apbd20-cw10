@@ -15,6 +15,36 @@ public class PrescriptionController : ControllerBase
         _dbService = dbService;
     }
 
-  
+    [HttpPost("{clientID}/preception")]
+
+    public async Task<IActionResult> AddNewOrder([FromBody] NewPrescriptionDTO newPrescriptionDto)
+    {
+        if (newPrescriptionDto.Medicaments.Count > 10)
+        {
+            return BadRequest("A prescription can have a maximum of 10 medicaments.");
+        }
+
+        if (await _dbService.DoesPatientExist(newPrescriptionDto.IdPatient))
+            return Ok($"Client with given ID - {newPrescriptionDto.IdPatient} exist");
+
+        foreach (var medicament in newPrescriptionDto.Medicaments)
+        {
+            if (!await _dbService.DoesMedicamentExist(medicament.IdMedicament))
+            {
+                return NotFound($"Medicament with given ID - {medicament.IdMedicament} doesn't exist.");
+            }
+        }
+
+        var prescription = new NewPrescriptionDTO()
+        {
+            IdPatient = newPrescriptionDto.IdPatient,
+            FirstName = newPrescriptionDto.FirstName,
+            LastName = newPrescriptionDto.LastName,
+            Birthday = newPrescriptionDto.Birthday,
+
+            
+        };
+        return Ok("adfc");
+    }
     
 }
